@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Админ-панель — Ресторан</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/css/style.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-danger">
+    <div class="container">
+      <span class="navbar-brand">Админ-панель</span>
+      <a href="/" class="btn btn-outline-light btn-sm">На сайт клиента</a>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    <section id="adminAuth">
+      <div class="row justify-content-center">
+        <div class="col-md-5">
+          <div id="adminAuthAlert" class="alert d-none"></div>
+          <div class="card">
+            <div class="card-header">Вход администратора</div>
+            <div class="card-body">
+              <p class="small text-muted">Логин: <code>admin</code>, пароль: <code>admin123</code></p>
+              <input id="adminUsername" class="form-control mb-2" placeholder="Логин">
+              <input id="adminPassword" type="password" class="form-control mb-2" placeholder="Пароль">
+              <button id="btnAdminLogin" class="btn btn-danger w-100">Войти</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="adminApp" class="d-none">
+      <div class="d-flex justify-content-between mb-3">
+        <h4 id="adminGreeting"></h4>
+        <button id="btnAdminLogout" class="btn btn-outline-secondary btn-sm">Выйти</button>
+      </div>
+
+      <div class="row g-4">
+        <!-- Календарь броней -->
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">Брони на дату</div>
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <input type="date" id="calendarDate" class="form-control">
+                <button id="btnLoadCalendar" class="btn btn-primary">Показать</button>
+              </div>
+              <div id="calendarBookings" class="list-group list-group-flush" style="max-height: 400px; overflow-y: auto;"></div>
+              <small id="calendarHint" class="text-success d-none"></small>
+            </div>
+          </div>
+        </div>
+
+        <!-- График загрузки -->
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header">Загрузка зала по часам</div>
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <input type="date" id="occupancyDate" class="form-control">
+                <button id="btnLoadOccupancy" class="btn btn-primary">Обновить график</button>
+              </div>
+              <canvas id="occupancyChart"></canvas>
+              <small id="occupancyHint" class="text-success d-none"></small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Управление столиками -->
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">Управление столиками</div>
+            <div class="card-body">
+              <div class="row g-2 mb-3">
+                <div class="col"><input id="newTableNumber" class="form-control" placeholder="№ столика"></div>
+                <div class="col"><input id="newTableSeats" class="form-control" placeholder="Мест"></div>
+                <div class="col-auto"><button id="btnAddTable" class="btn btn-success">Добавить</button></div>
+              </div>
+              <div id="tablesAdminList"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- История и экспорт -->
+        <div class="col-lg-6">
+          <div class="card mb-3">
+            <div class="card-header">История броней</div>
+            <div class="card-body">
+              <div class="row g-2 mb-2">
+                <div class="col"><input type="date" id="historyFrom" class="form-control"></div>
+                <div class="col"><input type="date" id="historyTo" class="form-control"></div>
+                <div class="col-auto"><button id="btnLoadHistory" class="btn btn-primary">Фильтр</button></div>
+              </div>
+              <div id="historyList" style="max-height: 250px; overflow-y: auto;"></div>
+              <small id="historyHint" class="text-success d-none"></small>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">Экспорт CSV</div>
+            <div class="card-body">
+              <div class="input-group">
+                <input type="date" id="exportDate" class="form-control">
+                <button id="btnExportCsv" class="btn btn-outline-success">Скачать CSV</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/admin.js"></script>
+  <script>
+    // Даты по умолчанию — сегодня
+    document.querySelectorAll('input[type="date"]').forEach((inp) => {
+      if (!inp.value) inp.value = new Date().toISOString().slice(0, 10);
+    });
+  </script>
+</body>
+</html>

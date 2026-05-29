@@ -1,0 +1,73 @@
+/* Общие стили — ресторанное бронирование */
+body {
+  background: #f8f5f0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+.navbar-brand {
+  font-weight: 700;
+}
+
+.hall-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.table-card {
+  border: 2px solid #dee2e6;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  background: #fff;
+}
+
+.table-card:hover {
+  border-color: #0d6efd;
+}
+
+.table-card.selected {
+  border-color: #198754;
+  background: #d1e7dd;
+}
+
+.table-card.unavailable {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.booking-steps .step {
+  display: none;
+}
+
+.booking-steps .step.active {
+  display: block;
+}
+
+.step-indicator span {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  border-radius: 50%;
+  background: #dee2e6;
+  margin-right: 6px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.step-indicator span.done {
+  background: #198754;
+  color: #fff;
+}
+
+.step-indicator span.active {
+  background: #0d6efd;
+  color: #fff;
+}
+
+#occupancyChart {
+  max-height: 320px;
+}
